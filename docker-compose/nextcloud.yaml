@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    command: --transaction-isolation="read committed"
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+
+  app:
+    image: nextcloud
+    restart: always
+    ports:
+      - 1111:80
+    links:
+      - db
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}

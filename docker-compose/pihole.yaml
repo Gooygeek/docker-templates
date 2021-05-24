@@ -1,0 +1,26 @@
+version: "2"
+
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "${HTTP_PORT}:80/tcp"
+      - "${HTTPS_PORT}:443/tcp"
+    environment:
+      TZ: '${TZ}'
+      # WEBPASSWORD: 'set a secure password here or it will be random'
+      VIRTUAL_HOST: pi.kgol.xyz
+    # Volumes store your data between container upgrades
+    volumes:
+      - 'pihole:/etc/pihole/'
+      - 'pihole-dnsmasq:/etc/dnsmasq.d/'
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    restart: always
