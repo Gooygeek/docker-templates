@@ -14,7 +14,7 @@ services:
     environment:
       TZ: '${TZ}'
       # WEBPASSWORD: 'set a secure password here or it will be random'
-      VIRTUAL_HOST: pi.kgol.xyz
+      VIRTUAL_HOST: ${HOSTNAME}
     # Volumes store your data between container upgrades
     volumes:
       - 'pihole:/etc/pihole/'

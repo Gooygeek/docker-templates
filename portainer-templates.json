@@ -59,6 +59,9 @@
     }, {
       "label": "HTTPS Port",
       "name": "HTTPS_PORT"
+    }, {
+      "label": "Hostname",
+      "name": "HOSTNAME"
     }],
     "logo": "https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Images/pihole.png",
     "name": "pihole",
