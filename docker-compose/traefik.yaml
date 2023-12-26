@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+      - 8082:8082
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/traefik-data/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /var/traefik-data/acme.json:/acme.json
+      - /var/traefik-data/configurations:/configurations
+      - /var/traefik-data/cloudflare_dns.token:/etc/traefik/cloudflare_dns.token:ro
+    environment:
+      - "CLOUDFLARE_DNS_API_TOKEN_FILE=/etc/traefik/cloudflare_dns.token"
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"

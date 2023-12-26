@@ -1,0 +1,28 @@
+version: "3"
+services:
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - radarr_config:/config
+      - ${DATA_DIR}:/data  # e.g. /data/radarr
+    ports:
+      - ${PORT}:7878
+    networks:
+      - the_arrs
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"
+
+volumes:
+  radarr_config:
+
+networks:
+  the_arrs:
+    external: true

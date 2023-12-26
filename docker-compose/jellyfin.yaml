@@ -1,0 +1,32 @@
+# https://github.com/babagreensheep/jellyfin-tizen-docker
+version: '3.5'
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: 1000:1000
+    # network_mode: 'host'
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - ${MEDIA_DIR}:/media  # Location to media library
+    restart: 'unless-stopped'
+    # Optional - alternative address used for autodiscovery
+    environment:
+      - JELLYFIN_PublishedServerUrl=https://${FQDN}
+    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - 8096:8096
+      - 8920:8920
+      - 1900:1900
+      - 7359:7359
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"
+
+volumes:
+  jellyfin-config:
+  jellyfin-cache:

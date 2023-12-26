@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+  tailscale:
+    image: "tailscale/tailscale:stable"
+    network_mode: "host"
+    privileged: true
+    hostname: ${HOSTNAME}
+    command: tailscaled
+    volumes:
+      - "/var/lib:/var/lib"          # State data will be stored in this directory
+      - "/dev/net/tun:/dev/net/tun"  # Required for tailscale to work
+      - "/lib/modules:/lib/modules"  # Required for subnet router and exit node
+    cap_add:                         # Required for tailscale to work
+      - net_admin
+      - sys_module
+    environment:
+      TZ: '${TZ}'
+      TS_AUTH_KEY: '${AUTH_KEY}'
+      TS_ROUTES: '${ROUTES}'  # e.g. 192.168.50.0/24
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"

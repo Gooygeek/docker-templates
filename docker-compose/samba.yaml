@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  samba:
+    image: samba
+    ports:
+      - "445:445"
+    volumes:
+      - samba-shares:/SHARE
+      - samba-config:/etc/samba
+    environment:
+      TZ: '${TZ}'
+    restart: unless-stopped

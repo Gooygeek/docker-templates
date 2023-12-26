@@ -1,0 +1,27 @@
+version: "3"
+services:
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - prowlarr_config:/config
+    ports:
+      - ${PORT}:9696
+    networks:
+      - the_arrs
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"
+
+volumes:
+  prowlarr_config:
+
+networks:
+  the_arrs:
+    external: true

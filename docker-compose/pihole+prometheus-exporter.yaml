@@ -12,9 +12,10 @@ services:
       - "${HTTPS_PORT}:443/tcp"
     environment:
       TZ: '${TZ}'
-      VIRTUAL_HOST: '${VIRTUAL_HOST}'  # IP of the host node
+      VIRTUAL_HOST: '${VIRTUAL_HOST}'
       # WEBPASSWORD: 'set a secure password here or it will be random'
       WEBPASSWORD: '${PASSWORD}'
+    # Volumes store your data between container upgrades
     volumes:
       - pihole-etc:/etc/pihole/
       - pihole-dnsmasq:/etc/dnsmasq.d/
@@ -27,7 +28,26 @@ services:
       placement:
         constraints:
           - "node.hostname==${HOSTNAME}"
+  pihole-exporter:
+    image: pihole-exporter:latest
+    ports:
+      - "${PROM_EXPORTER_PORT}:9617/tcp"
+    environment:
+      PIHOLE_HOSTNAME: localhost
+      PIHOLE_PASSWORD: '${PASSWORD}'
+      PIHOLE_PORT: 80
+      INTERVAL: 30s
+      PORT: 9617
+    # Volumes store your data between container upgrades
+    volumes:
+      - pihole-exporter-certs:/etc/ssl/certs
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"
 
 volumes:
   pihole-etc:
   pihole-dnsmasq:
+  pihole-exporter-certs:

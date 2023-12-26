@@ -6,7 +6,7 @@ services:
     restart: always
     command: --transaction-isolation="read committed"
     volumes:
-      - db:/var/lib/postgresql/data
+      - nextcloud-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=nextcloud
       - POSTGRES_USER=nextcloud
@@ -16,11 +16,11 @@ services:
     image: nextcloud
     restart: always
     ports:
-      - 1111:80
+      - ${PORT}:80
     links:
       - db
     volumes:
-      - nextcloud:/var/www/html
+      - nextcloud-app:/var/www/html
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_DB=nextcloud

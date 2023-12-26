@@ -1,0 +1,26 @@
+version: "2"
+services:
+  snapdrop:
+    image: "node:lts-alpine"
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - snapdrop:/home/node/app
+    command: ash -c "npm i && node index.js"
+  snapdrop-nginx:
+    build:
+      context: ./docker/
+      dockerfile: nginx-with-openssl.Dockerfile
+    image: "nginx-with-openssl"
+    volumes:
+      - snapdrop-nginx-client:/usr/share/nginx/html
+      - snapdrop-nginx-defaultconf:/etc/nginx/conf.d/default.conf
+      - snapdrop-nginx-certs:/etc/ssl/certs
+      - snapdrop-nginx-openssl:/mnt/openssl
+    ports:
+      - ${HTTP_PORT}:80
+      - ${HTTPS_PORT}:443
+    environment:
+      - FQDN=localhost
+    entrypoint: /mnt/openssl/create.sh
+    command: ["nginx", "-g", "daemon off;"]

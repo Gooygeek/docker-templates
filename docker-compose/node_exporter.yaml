@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    environment:
+      - TZ=${TZ}
+    #ports:
+     #- "9100:9100"
+    ports:
+      - target: 9100
+        published: 9100
+        protocol: tcp
+        mode: host
+    network_mode: "host"
+    pid: host
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - '/:/host:ro,rslave'
+    cap_add:
+         - SYS_TIME
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    deploy:
+      mode: global

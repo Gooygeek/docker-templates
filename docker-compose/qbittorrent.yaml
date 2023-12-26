@@ -1,0 +1,33 @@
+version: "3"
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - WEBUI_PORT=6880
+    volumes:
+      - qbittorrent_config:/config
+      - ${DATA_DIR}:/data  # e.g. /data/radarr
+    ports:
+      - 6880:6880
+      - 6881:6881
+      - 6881:6881/udp
+    networks:
+      - the_arrs
+    restart: "no"
+    deploy:
+      restart_policy:
+        condition: none
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"
+
+volumes:
+  qbittorrent_config:
+
+networks:
+  the_arrs:
+    external: true
