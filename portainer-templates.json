@@ -718,6 +718,37 @@
         "stackfile": "docker-compose/prometheus.yaml",
         "url": "https://github.com/Gooygeek/docker-templates"
       }
+    },
+    {
+      "type": 2,
+      "title": "ntfy.sh",
+      "categories": [
+        "Monitoring"
+      ],
+      "description": "Notification routing.",
+      "env": [
+        {
+          "default": "Australia/Sydney",
+          "label": "Timezone",
+          "name": "TZ"
+        },
+        {
+          "label": "Hostname",
+          "name": "HOSTNAME"
+        },
+        {
+          "label": "Port",
+          "name": "PORT"
+        }
+      ],
+      "logo": "https://github.com/binwiederhier/ntfy/raw/main/web/public/static/images/ntfy.png",
+      "name": "ntfy.sh",
+      "note": "",
+      "platform": "linux",
+      "repository": {
+        "stackfile": "docker-compose/ntfy.yaml",
+        "url": "https://github.com/Gooygeek/docker-templates"
+      }
     }
   ]
 }
