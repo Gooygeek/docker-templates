@@ -1,0 +1,26 @@
+version: "3"
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    user: 1000:1000 # should be owner of volumes
+    ports:
+      - ${PORT}:4533
+    environment:
+      - TZ=${TZ}
+        # Optional: put your config options customization here. Examples:
+      - ND_SCANSCHEDULE=1h
+      - ND_LOGLEVEL=info
+      - ND_SESSIONTIMEOUT=24h
+      - ND_BASEURL="${BASE_URL}"
+    volumes:
+      - "navidrome_data:/data"
+      - "/mnt/ExternalHDD/Multimedia/Music/Library:/music:ro"
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"
+
+volumes:
+  navidrome_data:

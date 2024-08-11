@@ -749,6 +749,42 @@
         "stackfile": "docker-compose/ntfy.yaml",
         "url": "https://github.com/Gooygeek/docker-templates"
       }
+    },
+    {
+      "type": 2,
+      "title": "Navidrome",
+      "categories": [
+        "Music",
+        "Media"
+      ],
+      "description": "Notification routing.",
+      "env": [
+        {
+          "default": "Australia/Sydney",
+          "label": "Timezone",
+          "name": "TZ"
+        },
+        {
+          "label": "Hostname",
+          "name": "HOSTNAME"
+        },
+        {
+          "label": "Port",
+          "name": "PORT"
+        },
+        {
+          "label": "Base URL",
+          "name": "BASE_URL"
+        }
+      ],
+      "logo": "https://raw.githubusercontent.com/navidrome/navidrome/master/resources/logo-192x192.png",
+      "name": "navidrome",
+      "note": "",
+      "platform": "linux",
+      "repository": {
+        "stackfile": "docker-compose/navidrome.yaml",
+        "url": "https://github.com/Gooygeek/docker-templates"
+      }
     }
   ]
 }
