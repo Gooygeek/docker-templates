@@ -816,6 +816,37 @@
         "stackfile": "docker-compose/loki.yaml",
         "url": "https://github.com/Gooygeek/docker-templates"
       }
+    },
+    {
+      "type": 2,
+      "title": "Grafana Alloy",
+      "categories": [
+        "Monitoring"
+      ],
+      "description": "Log and metric collection.",
+      "env": [
+        {
+          "default": "Australia/Sydney",
+          "label": "Timezone",
+          "name": "TZ"
+        },
+        {
+          "label": "Hostname",
+          "name": "HOSTNAME"
+        },
+        {
+          "label": "Endpoint of Loki instance",
+          "name": "LOKI_HOST"
+        }
+      ],
+      "logo": "https://raw.githubusercontent.com/grafana/alloy/57944e208a5b9a0d093db879773bba2eb10c7b75/docs/sources/assets/alloy_icon_orange.svg",
+      "name": "alloy",
+      "note": "",
+      "platform": "linux",
+      "repository": {
+        "stackfile": "docker-compose/alloy.yaml",
+        "url": "https://github.com/Gooygeek/docker-templates"
+      }
     }
   ]
 }

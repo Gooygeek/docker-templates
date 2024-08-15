@@ -1,0 +1,21 @@
+version: '3'
+services:
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy
+    environment:
+      - TZ=${TZ}
+      - LOKI_HOST=${LOKI_HOST}
+    volumes:
+      - "alloy_config:/etc/alloy"
+      - "alloy_data:/var/lib/alloy/data"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"
+
+volumes:
+  alloy_config:
+  alloy_data:
