@@ -1,0 +1,22 @@
+version: '3'
+services:
+  loki:
+    image: grafana/loki:2.9.2
+    container_name: loki
+    ports:
+      - ${PORT}:3100
+    environment:
+      - TZ=${TZ}
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - "loki_config:/etc/loki"
+      - "loki_data:/loki"
+    restart: unless-stopped
+    deploy:
+      placement:
+        constraints:
+          - "node.hostname==${HOSTNAME}"
+
+volumes:
+  loki_config:
+  loki_data:

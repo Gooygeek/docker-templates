@@ -785,6 +785,37 @@
         "stackfile": "docker-compose/navidrome.yaml",
         "url": "https://github.com/Gooygeek/docker-templates"
       }
+    },
+    {
+      "type": 2,
+      "title": "Grafana Loki",
+      "categories": [
+        "Monitoring"
+      ],
+      "description": "Log storage and searching.",
+      "env": [
+        {
+          "default": "Australia/Sydney",
+          "label": "Timezone",
+          "name": "TZ"
+        },
+        {
+          "label": "Hostname",
+          "name": "HOSTNAME"
+        },
+        {
+          "label": "Port",
+          "name": "PORT"
+        }
+      ],
+      "logo": "https://raw.githubusercontent.com/grafana/loki/main/docs/sources/logo.png",
+      "name": "loki",
+      "note": "",
+      "platform": "linux",
+      "repository": {
+        "stackfile": "docker-compose/loki.yaml",
+        "url": "https://github.com/Gooygeek/docker-templates"
+      }
     }
   ]
 }
