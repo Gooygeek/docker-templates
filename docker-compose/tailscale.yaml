@@ -2,21 +2,30 @@ version: "3.5"
 services:
   tailscale:
     image: "tailscale/tailscale:stable"
-    network_mode: "host"
-    privileged: true
+    #network_mode: "host"
+    #privileged: true
     hostname: ${HOSTNAME}
-    command: tailscaled
     volumes:
-      - "/var/lib:/var/lib"          # State data will be stored in this directory
-      - "/dev/net/tun:/dev/net/tun"  # Required for tailscale to work
-      - "/lib/modules:/lib/modules"  # Required for subnet router and exit node
-    cap_add:                         # Required for tailscale to work
+      - "/var/lib/tailscale:/var/lib/tailscale" # State data will be stored in this directory
+      - "/dev/net/tun:/dev/net/tun"             # Required for tailscale to work
+      - "/lib/modules:/lib/modules"             # Required for subnet router and exit node
+    cap_add: # Required for tailscale to work
       - net_admin
       - sys_module
     environment:
       TZ: '${TZ}'
-      TS_AUTH_KEY: '${AUTH_KEY}'
+      TS_AUTHKEY: '${AUTH_KEY}'
       TS_ROUTES: '${ROUTES}'  # e.g. 192.168.50.0/24
+      TS_STATE_DIR: "/var/lib/tailscale"
+      TS_OUTBOUND_HTTP_PROXY_LISTEN: "0.0.0.0:${HTTP_PROXY_PORT}"
+      TS_SOCKS5_SERVER: "0.0.0.0:${SOCKS5_PROXY_PORT}"
+      TS_AUTH_ONCE: "false"
+      TS_USERSPACE: "false"
+      TS_EXTRA_ARGS: "${EXTRA_ARGS}"
+      TS_TAILSCALED_EXTRA_ARGS: "${TAILSCALED_EXTRA_ARGS}"
+    ports:
+      - ${HTTP_PROXY_PORT}:${HTTP_PROXY_PORT}
+      - ${SOCKS5_PROXY_PORT}:${SOCKS5_PROXY_PORT}
     logging:
       driver: "json-file"
       options:

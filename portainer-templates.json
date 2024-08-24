@@ -630,6 +630,23 @@
         {
           "label": "Advertised Subnet Routes",
           "name": "ROUTES"
+        },
+        {
+          "label": "Port for hosting an HTTP proxy",
+          "name": "HTTP_PROXY_PORT"
+        },
+        {
+          "label": "Port for hosting a SOCKS5 proxy",
+          "name": "SOCKS5_PROXY_PORT"
+        },
+        {
+          "label": "Extra args to pass to tailscale",
+          "name": "EXTRA_ARGS",
+          "default": "--accept-routes --advertise-exit-node"
+        },
+        {
+          "label": "Extra args to pass to tailscaled",
+          "name": "TAILSCALED_EXTRA_ARGS"
         }
       ],
       "logo": "https://tailscale.com/favicon.svg",
