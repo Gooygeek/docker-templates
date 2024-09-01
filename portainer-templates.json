@@ -864,6 +864,37 @@
         "stackfile": "docker-compose/alloy.yaml",
         "url": "https://github.com/Gooygeek/docker-templates"
       }
+    },
+    {
+      "type": 2,
+      "title": "Immich",
+      "categories": [
+        "Photos"
+      ],
+      "description": "Photo management (google photos).",
+      "env": [
+        {
+          "default": "Australia/Sydney",
+          "label": "Timezone",
+          "name": "TZ"
+        },
+        {
+          "label": "Hostname",
+          "name": "HOSTNAME"
+        },
+        {
+          "label": "Database Password",
+          "name": "DB_PASSWORD"
+        }
+      ],
+      "logo": "https://raw.githubusercontent.com/immich-app/immich/main/design/immich-logo.svg",
+      "name": "immich",
+      "note": "",
+      "platform": "linux",
+      "repository": {
+        "stackfile": "docker-compose/immich.yaml",
+        "url": "https://github.com/Gooygeek/docker-templates"
+      }
     }
   ]
 }
